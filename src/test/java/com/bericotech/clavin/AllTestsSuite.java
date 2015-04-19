@@ -44,8 +44,6 @@ import org.junit.runners.Suite.SuiteClasses;
     com.bericotech.clavin.gazetteer.GeoNameTest.class,
     com.bericotech.clavin.index.BinarySimilarityTest.class,
     com.bericotech.clavin.resolver.ResolvedLocationTest.class,
-    com.bericotech.clavin.resolver.ClavinLocationResolverTest.class,
-    com.bericotech.clavin.resolver.ClavinLocationResolverHeuristicsTest.class,
     com.bericotech.clavin.resolver.multipart.MultipartLocationResolverTest.class,
     com.bericotech.clavin.resolver.multipart.MultiLevelMultipartLocationResolverTest.class,
     com.bericotech.clavin.util.DamerauLevenshteinTest.class,

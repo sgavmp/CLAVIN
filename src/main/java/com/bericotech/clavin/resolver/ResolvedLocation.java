@@ -57,6 +57,10 @@ public class ResolvedLocation {
 
     // confidence score for resolution
     private final float confidence;
+    
+    // number of UTF-16 code units from the start of the document at
+    // which the location name starts
+    private int position;
 
     /**
      * Builds a {@link ResolvedLocation} from a document retrieved from
@@ -73,7 +77,7 @@ public class ResolvedLocation {
         this.location = location;
         this.matchedName = matchedName;
         this.fuzzy = fuzzy;
-
+        this.position = location.getPosition();
         // for fuzzy matches, confidence is based on the edit distance
         // between the given location name and the matched name
         this.confidence = fuzzy ? 1 / (damerauLevenshteinDistanceCaseInsensitive(location.getText(), matchedName) + (float)0.5) : 1;
@@ -152,4 +156,13 @@ public class ResolvedLocation {
     public float getConfidence() {
         return confidence;
     }
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
+
 }

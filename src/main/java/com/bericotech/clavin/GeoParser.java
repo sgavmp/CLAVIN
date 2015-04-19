@@ -104,7 +104,7 @@ public class GeoParser {
         // then, resolve the extracted location names against a
         // gazetteer to produce geographic entities representing the
         // locations mentioned in the original text
-        List<ResolvedLocation> resolvedLocations = resolver.resolveLocations(locationNames, maxHitDepth, maxContextWindow, fuzzy);
+        List<ResolvedLocation> resolvedLocations = resolver.resolveLocations(locationNames, maxHitDepth, maxContextWindow, fuzzy, inputText.toLowerCase());
 
         logger.trace("resolved: {}", resolvedLocations);
 

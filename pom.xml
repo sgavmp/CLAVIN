@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.bericotech</groupId>
-    <artifactId>clavin</artifactId>
-    <version>2.0.0</version>
+    <groupId>me.vamsoft</groupId>
+    <artifactId>clavin-mod</artifactId>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -13,8 +13,8 @@
         <version>7</version>
     </parent>
 
-    <name>CLAVIN</name>
-    <description>CLAVIN (Cartographic Location And Vicinity INdexer)
+    <name>CLAVIN-MOD</name>
+    <description>CLAVIN-MOD
         is an open source software package for geographic entity resolution
         from text.</description>
     <url>http://clavin.bericotechnologies.com</url>
