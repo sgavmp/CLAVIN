@@ -39,8 +39,13 @@ import com.bericotech.clavin.index.BinarySimilarity;
 import com.bericotech.clavin.index.IndexField;
 import com.bericotech.clavin.index.WhitespaceLowerCaseAnalyzer;
 import com.bericotech.clavin.resolver.ResolvedLocation;
+import com.bericotech.clavin.util.Decoder;
+import com.bericotech.clavin.util.StringDecoder;
+import com.bericotech.clavin.util.Util;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -49,15 +54,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.analyzing.AnalyzingQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.similarities.DefaultSimilarity;
 import org.apache.lucene.search.BooleanQuery;
+import org.apache.lucene.search.Collector;
 import org.apache.lucene.search.Filter;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.NumericRangeQuery;
@@ -69,6 +79,7 @@ import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.BytesRef;
 import org.apache.lucene.util.Version;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,12 +146,9 @@ public class LuceneGazetteer implements Gazetteer {
         try {
         // load the Lucene index directory from disk
         index = FSDirectory.open(indexDir);
-
         indexSearcher = new IndexSearcher(DirectoryReader.open(index));
-
         // override default TF/IDF score to ignore multiple appearances
         indexSearcher.setSimilarity(new BinarySimilarity());
-
         // run an initial throw-away query just to "prime the pump" for
         // the cache, so we can accurately measure performance speed
         // per: http://wiki.apache.org/lucene-java/ImproveSearchingSpeed
@@ -255,7 +263,7 @@ public class LuceneGazetteer implements Gazetteer {
         // deduping and need to fill results
         ScoreDoc lastDoc = null;
         do {
-            // collect all the hits up to maxResults, and sort them based
+			// collect all the hits up to maxResults, and sort them based
             // on Lucene match score and population for the associated
             // GeoNames record
             TopDocs results = indexSearcher.searchAfter(lastDoc, query, filter, maxResults, POPULATION_SORT);
@@ -266,7 +274,7 @@ public class LuceneGazetteer implements Gazetteer {
                 lastDoc = scoreDoc;
                 Document doc = indexSearcher.doc(scoreDoc.doc);
                 // reuse GeoName instances so all ancestry is correctly resolved if multiple names for
-                // the same GeoName match the query
+                // the same GeoName matlych the query
                 int geonameID = GEONAME_ID.getValue(doc);
                 GeoName geoname = geonameMap.get(geonameID);
                 if (geoname == null) {

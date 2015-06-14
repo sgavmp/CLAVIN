@@ -111,4 +111,14 @@ public class GeoParser {
         return resolvedLocations;
     }
 
+	public ClavinLocationResolver getResolver() {
+		return resolver;
+	}
+
+	public void setResolver(ClavinLocationResolver resolver) {
+		this.resolver = resolver;
+	}
+    
+    
+
 }

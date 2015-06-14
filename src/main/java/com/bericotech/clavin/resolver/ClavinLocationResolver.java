@@ -199,13 +199,16 @@ public class ClavinLocationResolver {
     	
     	for (ResolvedLocation location : candidates) {
     		String nameLocation = location.getMatchedName().toLowerCase();
-    		if (nameLocation.length()>length) {
+    		if (nameLocation.length()>=length) {
     			//Posicion de la palabra dentro de la localizacion
     			int secIndex = nameLocation.indexOf(location.getLocation().getText().toLowerCase());
     			if (text.indexOf(nameLocation, location.getLocation().getPosition()-secIndex)>-1) {
     				length=nameLocation.length();
     				bestCandidate = location;
+    				bestCandidate.getLocation().setText(location.getMatchedName());
     				bestCandidate.setPosition(location.getLocation().getPosition()-secIndex);
+    				if (location.getGeoname().getName().equals(nameLocation))
+    					break;
     			}
     		}
     	}

@@ -337,14 +337,14 @@ public class GeoName {
 
         double latitude;
         try {
-            latitude = Double.parseDouble(tokens[4]);
+            latitude = Double.parseDouble(tokens[4].replace(",", "."));
         } catch (NumberFormatException e) {
             latitude = OUT_OF_BOUNDS;
         }
 
         double longitude;
         try {
-            longitude = Double.parseDouble(tokens[5]);
+            longitude = Double.parseDouble(tokens[5].replace(",", "."));
         } catch (NumberFormatException e) {
             longitude = OUT_OF_BOUNDS;
         }
