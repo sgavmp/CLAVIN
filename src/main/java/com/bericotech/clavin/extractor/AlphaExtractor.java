@@ -22,6 +22,8 @@ public class AlphaExtractor implements LocationExtractor {
 	@Override
 	public List<LocationOccurrence> extractLocationNames(String plainText) {
 		StopWords languaje = StopWords.guess(plainText);
+		if (languaje==null)
+			languaje = StopWords.Spanish;
 		List<LocationOccurrence> lista = new ArrayList<LocationOccurrence>();
 		int index = 0;
 		for (String s : plainText.split(" ")) {
