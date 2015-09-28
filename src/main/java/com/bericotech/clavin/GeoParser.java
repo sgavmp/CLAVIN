@@ -104,14 +104,14 @@ public class GeoParser {
 	 * @return list of geo entities resolved from text
 	 * @throws Exception
 	 */
-	public List<ResolvedLocation> parse(String inputText)
+	public List<ResolvedLocation> parse(String inputText, boolean prefix)
 			throws Exception {
 
 		logger.trace("input: {}", inputText);
 
 		// first, extract location names from the text
 		List<LocationOccurrence> locationNames = extractor
-				.extractLocationNames(inputText);
+				.extractLocationNames(inputText,prefix);
 
 		logger.trace("extracted: {}", locationNames);
 
