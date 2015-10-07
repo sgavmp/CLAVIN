@@ -61,7 +61,7 @@ public class WorkflowDemo {
 
 		// Instantiate the CLAVIN GeoParser
 		GeoParser parser = GeoParserFactory.getDefault("IndexDirectory",
-				new AlphaExtractor("in,at,the,of,from,to,on,and,the"), 50, 15, false);
+				new AlphaExtractor(), 50, 15, false);
 		// GeoParser parser = GeoParserFactory.getDefault("IndexDirectory", 50,
 		// 15 , false);
 
@@ -82,7 +82,7 @@ public class WorkflowDemo {
 
 		// Parse location names in the text into geographic entities
 		List<ResolvedLocation> resolvedLocations = parser
-				.parse(texto,true);
+				.parse(texto,"(^|\\s|\\,|\\.|\\-)(\\s*)(at|in|on|of|from|and|the|en|de)*(\\s)(?-i)([A-Z]\\w+)");
 
 		// LocationOccurrence test = new LocationOccurrence("el puerto de ", 0);
 		// List<LocationOccurrence> listaTest = new ArrayList<>();

@@ -82,7 +82,7 @@ public class ApacheExtractor implements LocationExtractor {
      * @param plainText     Contents of text document
      * @return List of location names and positions
      */
-    public List<LocationOccurrence> extractLocationNames(String plainText, boolean prefix) {
+    public List<LocationOccurrence> extractLocationNames(String plainText, String regExp) {
         if(plainText == null) {
             throw new IllegalArgumentException("plaintext input to extractLocationNames should not be null");
         }
